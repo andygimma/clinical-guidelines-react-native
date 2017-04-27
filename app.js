@@ -4,12 +4,6 @@ import { TouchableHighlight, View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchData } from './actions'
 
-import firebaseConfig from './firebaseConfig.json';
-
-import * as firebase from 'firebase';
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
 let styles
 
 const App = (props) => {
