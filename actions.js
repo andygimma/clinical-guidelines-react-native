@@ -1,5 +1,11 @@
-import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from './constants'
-import getPeople from './api'
+import {
+  FETCHING_DATA,
+  FETCHING_DATA_SUCCESS,
+  FETCHING_DATA_FAILURE,
+  RECEIVED_FIREBASE_DATA
+} from './constants';
+
+import getPeople from './api';
 
 export function getData() {
   return {
@@ -28,5 +34,12 @@ export function fetchData() {
         dispatch(getDataSuccess(data))
       })
       .catch((err) => console.log('err:', err))
+  }
+}
+
+export function receivedFirebaseData(data) {
+  return (dispatch) => {
+    type: RECEIVED_FIREBASE_DATA,
+    data
   }
 }

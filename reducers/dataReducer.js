@@ -1,5 +1,12 @@
-import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constants'
+import {
+  FETCHING_DATA,
+  FETCHING_DATA_SUCCESS,
+  FETCHING_DATA_FAILURE,
+  RECEIVED_FIREBASE_DATA
+} from '../constants';
+
 const initialState = {
+  // TODO get data from localStorage
   data: [],
   dataFetched: false,
   isFetching: false,
@@ -26,6 +33,7 @@ export default function dataReducer (state = initialState, action) {
         isFetching: false,
         error: true
       }
+
     default:
       return state
   }
