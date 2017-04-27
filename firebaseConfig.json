@@ -1,0 +1,8 @@
+{
+  apiKey: "AIzaSyDZmy5uwUUe2HjwjG8THBUDWmO3dYW3NXE",
+  authDomain: "clinical-guidelines-v01.firebaseapp.com",
+  databaseURL: "https://clinical-guidelines-v01.firebaseio.com",
+  projectId: "clinical-guidelines-v01",
+  storageBucket: "clinical-guidelines-v01.appspot.com",
+  messagingSenderId: "580769026128"
+}
