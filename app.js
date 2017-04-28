@@ -2,7 +2,7 @@ import React from 'react'
 import { TouchableHighlight, View, Text, StyleSheet } from 'react-native'
 
 import { connect } from 'react-redux'
-import { fetchData } from './actions'
+import { watchGuidelineAddedEvent } from './actions'
 
 let styles
 
@@ -14,6 +14,8 @@ const App = (props) => {
     buttonText,
     mainContent
   } = styles
+
+  console.log(this.props);
 
   return (
     <View style={container}>
@@ -69,6 +71,7 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
+  watchGuidelineAddedEvent(dispatch);
   return {
     fetchData: () => dispatch(fetchData())
   }

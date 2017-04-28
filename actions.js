@@ -7,6 +7,8 @@ import {
 
 import getPeople from './api';
 
+import database from './firebaseDatabase';
+
 export function getData() {
   return {
     type: FETCHING_DATA
@@ -42,4 +44,17 @@ export function receivedFirebaseData(data) {
     type: RECEIVED_FIREBASE_DATA,
     data
   }
+}
+
+export function watchGuidelineAddedEvent(dispatch) {
+  database.ref('/guidelines').on('child_added', (snap) => {
+    dispatch(guidelineAddedAction(snap.val()));
+  });
+}
+
+function guidelineAddedAction(data) {
+  return {
+    type: RECEIVED_FIREBASE_DATA,
+    data
+  };
 }

@@ -33,7 +33,11 @@ export default function dataReducer (state = initialState, action) {
         isFetching: false,
         error: true
       }
-
+    case RECEIVED_FIREBASE_DATA:
+      console.log('RECEIVED_FIREBASE_DATA');
+      console.log(action)
+      const newState = Object.assign({}, state);
+      return state
     default:
       return state
   }
