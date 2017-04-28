@@ -47,7 +47,7 @@ export function receivedFirebaseData(data) {
 }
 
 export function watchGuidelineAddedEvent(dispatch) {
-  database.ref('/guidelines').on('child_added', (snap) => {
+  database.ref('/guidelines').on('value', (snap) => {
     dispatch(guidelineAddedAction(snap.val()));
   });
 }

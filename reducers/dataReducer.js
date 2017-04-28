@@ -37,7 +37,8 @@ export default function dataReducer (state = initialState, action) {
       console.log('RECEIVED_FIREBASE_DATA');
       console.log(action)
       const newState = Object.assign({}, state);
-      return state
+      newState.data = Object.values(action.data);
+      return newState;
     default:
       return state
   }

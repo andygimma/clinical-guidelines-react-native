@@ -15,7 +15,7 @@ const App = (props) => {
     mainContent
   } = styles
 
-  console.log(this.props);
+  console.log(props);
 
   return (
     <View style={container}>
@@ -29,10 +29,10 @@ const App = (props) => {
       }
       {
         props.appData.data.length ? (
-          props.appData.data.map((person, i) => {
+          props.appData.data.map((guideline, i) => {
+            console.log(guideline);
             return <View key={i} >
-              <Text>Name: {person.name}</Text>
-              <Text>Age: {person.age}</Text>
+              <Text>Name: {guideline.name}</Text>
             </View>
           })
         ) : null
