@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableHighlight, View, Text, StyleSheet } from 'react-native'
+import { TouchableHighlight, View, Text, StyleSheet, ListView } from 'react-native'
 
 import { connect } from 'react-redux'
 import { watchGuidelineAddedEvent } from './actions'
@@ -15,26 +15,27 @@ const App = (props) => {
     mainContent
   } = styles
 
+  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   console.log(props);
 
   return (
     <View style={container}>
-      <Text style={text}>Redux Examples</Text>
-      <TouchableHighlight style={button} onPress={() => props.fetchData()}>
-        <Text style={buttonText}>Load Data</Text>
-      </TouchableHighlight>
+      <View>
+        <Text>
+          Clinical Guidelines
+        </Text>
+      </View>
       <View style={mainContent}>
       {
         props.appData.isFetching && <Text>Loading</Text>
       }
       {
         props.appData.data.length ? (
-          props.appData.data.map((guideline, i) => {
-            console.log(guideline);
-            return <View key={i} >
-              <Text>Name: {guideline.name}</Text>
-            </View>
-          })
+          <ListView
+            style={mainContent}
+            dataSource={ds.cloneWithRows(props.appData.data)}
+            renderRow={(rowData) => <Text>{rowData.name}</Text>}
+          />
         ) : null
       }
       </View>
@@ -44,7 +45,7 @@ const App = (props) => {
 
 styles = StyleSheet.create({
   container: {
-    marginTop: 100
+    marginTop: 10
   },
   text: {
     textAlign: 'center'
