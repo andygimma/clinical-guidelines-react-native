@@ -1,8 +1,19 @@
 import React from 'react'
-import { TouchableHighlight, View, Text, StyleSheet, ListView } from 'react-native'
+import {
+  TouchableHighlight,
+  View,
+  Text,
+  StyleSheet,
+  ListView,
+  Button
+} from 'react-native'
 
 import { connect } from 'react-redux'
-import { watchGuidelineAddedEvent } from './actions'
+import {
+  watchGuidelineAddedEvent,
+  showGuideline,
+  showList
+} from './actions'
 
 let styles
 
@@ -12,16 +23,15 @@ const App = (props) => {
     text,
     button,
     buttonText,
-    mainContent
+    mainContent,
+    row,
+    header
   } = styles
-
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-  console.log(props);
-
   return (
     <View style={container}>
       <View>
-        <Text>
+        <Text style={header}>
           Clinical Guidelines
         </Text>
       </View>
@@ -30,12 +40,45 @@ const App = (props) => {
         props.appData.isFetching && <Text>Loading</Text>
       }
       {
-        props.appData.data.length ? (
+        props.appData.data.length && props.appData.showGuideline === false ? (
           <ListView
             style={mainContent}
             dataSource={ds.cloneWithRows(props.appData.data)}
-            renderRow={(rowData) => <Text>{rowData.name}</Text>}
+            renderRow={(rowData) => (
+              <TouchableHighlight onPress={() => props.showGuideline(rowData)}>
+                <Text
+                  style={row}
+                >
+                  {rowData.name}
+                </Text>
+              </TouchableHighlight>
+            )}
           />
+        ) : null
+      }
+      {
+        props.appData.showGuideline ? (
+          <View>
+            <Button
+              onPress={() => props.showList()}
+              title="Back"
+              color="blue"
+              accessibilityLabel="Back button"
+            />
+            <Text>
+              {props.appData.guideline.name}
+            </Text>
+            <Text>
+              Organization: {props.appData.guideline.organization}
+            </Text>
+            <Text>
+              Language: {props.appData.guideline.language}
+            </Text>
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla placerat erat vitae justo suscipit volutpat. Pellentesque gravida dapibus mauris ut blandit. Etiam vitae ligula eget magna fermentum efficitur eget consectetur eros. Integer pellentesque nunc ligula, commodo maximus lacus vestibulum eu. Proin eu aliquam arcu. Sed vulputate odio quis scelerisque luctus. Praesent tortor velit, sollicitudin id nisi ac, egestas condimentum nunc. Donec sollicitudin sollicitudin viverra. Nullam fermentum massa in rutrum elementum. Sed efficitur risus lobortis ex convallis, non luctus nunc venenatis. Proin condimentum luctus mauris at ullamcorper.
+            </Text>
+          </View>
+
         ) : null
       }
       </View>
@@ -62,6 +105,16 @@ styles = StyleSheet.create({
   },
   mainContent: {
     margin: 10,
+  },
+  row: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: 'blue'
+  },
+  header: {
+    textAlign: 'center'
   }
 })
 
@@ -74,7 +127,9 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   watchGuidelineAddedEvent(dispatch);
   return {
-    fetchData: () => dispatch(fetchData())
+    fetchData: () => dispatch(fetchData()),
+    showGuideline: (data) => dispatch(showGuideline(data)),
+    showList: (data) => dispatch(showList())
   }
 }
 

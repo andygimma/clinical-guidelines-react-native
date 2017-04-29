@@ -2,7 +2,9 @@ import {
   FETCHING_DATA,
   FETCHING_DATA_SUCCESS,
   FETCHING_DATA_FAILURE,
-  RECEIVED_FIREBASE_DATA
+  RECEIVED_FIREBASE_DATA,
+  SHOW_GUIDELINE,
+  SHOW_LIST
 } from './constants';
 
 import getPeople from './api';
@@ -57,4 +59,17 @@ function guidelineAddedAction(data) {
     type: RECEIVED_FIREBASE_DATA,
     data
   };
+}
+
+export function showGuideline(data) {
+  return {
+    type: SHOW_GUIDELINE,
+    data
+  }
+}
+
+export function showList(data) {
+  return {
+    type: SHOW_LIST
+  }
 }

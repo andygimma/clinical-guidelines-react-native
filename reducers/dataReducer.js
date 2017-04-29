@@ -2,7 +2,9 @@ import {
   FETCHING_DATA,
   FETCHING_DATA_SUCCESS,
   FETCHING_DATA_FAILURE,
-  RECEIVED_FIREBASE_DATA
+  RECEIVED_FIREBASE_DATA,
+  SHOW_GUIDELINE,
+  SHOW_LIST
 } from '../constants';
 
 const initialState = {
@@ -10,10 +12,14 @@ const initialState = {
   data: [],
   dataFetched: false,
   isFetching: false,
-  error: false
+  error: false,
+  showGuideline: false,
+  guideline: {}
 }
 
 export default function dataReducer (state = initialState, action) {
+  const newState = Object.assign({}, state);
+
   switch (action.type) {
     case FETCHING_DATA:
       return {
@@ -34,11 +40,16 @@ export default function dataReducer (state = initialState, action) {
         error: true
       }
     case RECEIVED_FIREBASE_DATA:
-      console.log('RECEIVED_FIREBASE_DATA');
-      console.log(action)
-      const newState = Object.assign({}, state);
       newState.data = Object.values(action.data);
       return newState;
+    case SHOW_GUIDELINE:
+      newState.showGuideline = true;
+      newState.guideline = action.data
+      return newState
+    case SHOW_LIST:
+      newState.showGuideline = false;
+      newState.guideline = {}
+      return newState
     default:
       return state
   }
