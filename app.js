@@ -37,7 +37,7 @@ const App = (props) => {
       </View>
       <View style={mainContent}>
       {
-        props.appData.isFetching && <Text>Loading</Text>
+        props.appData.data.length === 0 && <Text style={header}>Waiting to connect...</Text>
       }
       {
         props.appData.data.length && props.appData.showGuideline === false ? (
